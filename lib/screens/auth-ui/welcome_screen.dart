@@ -1,3 +1,4 @@
+import 'package:ecomm/screens/auth-ui/signin_screen.dart';
 import 'package:ecomm/utils/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,7 +34,7 @@ class WelcomeScreen extends StatelessWidget {
               height: Get.height / 12,
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 8),
+              margin: const EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
                   color: AppConstant.appSecondaryColor,
                   border: Border.all(color: Colors.red),
@@ -58,7 +59,7 @@ class WelcomeScreen extends StatelessWidget {
               height: Get.height / 18,
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 8),
+              margin: const EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
                   color: AppConstant.appSecondaryColor,
                   border: Border.all(color: Colors.red),
@@ -67,7 +68,7 @@ class WelcomeScreen extends StatelessWidget {
               height: Get.height / 14,
               child: TextButton.icon(
                 icon: const Icon(Icons.email),
-                onPressed: () => print('he'),
+                onPressed: () => Get.offAll(const SignInScreen()),
                 label: const Text(
                   'Sign In with Email',
                   style:

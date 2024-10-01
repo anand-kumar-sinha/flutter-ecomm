@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:ecomm/screens/auth-ui/signin_screen.dart';
+import 'package:ecomm/screens/auth-ui/signup_screen.dart';
 import 'package:ecomm/screens/auth-ui/welcome_screen.dart';
 import 'package:ecomm/screens/user-panel/main_screen.dart';
 import 'package:ecomm/utils/app_constant.dart';
@@ -21,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 5), () {
-      Get.offAll(() => SignInScreen());
+      Get.offAll(() => const WelcomeScreen());
     });
   }
 
