@@ -1,5 +1,6 @@
 import 'package:ecomm/utils/app_constant.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -19,6 +20,7 @@ class _MainScreenState extends State<MainScreen> {
               child: Text(AppConstant.appMainName,
                   style: const TextStyle(
                     color: AppConstant.appTextColor,
+                    fontWeight: FontWeight.bold,
                   )),
             )));
   }
