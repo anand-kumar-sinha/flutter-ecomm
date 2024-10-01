@@ -23,19 +23,22 @@ class WelcomeScreen extends StatelessWidget {
         child: Column(
           children: [
             Container(
+              width: Get.width,
               child: Lottie.asset(
-                'assets/images/login-icon.json',
+                'assets/images/welcome-icon.json',
+                fit: BoxFit.fill,
               ),
             ),
             SizedBox(
               height: Get.height / 12,
             ),
             Container(
+              margin: EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
                   color: AppConstant.appSecondaryColor,
                   border: Border.all(color: Colors.red),
-                  borderRadius: BorderRadius.circular(25)),
-              width: Get.width / 1.2,
+                  borderRadius: BorderRadius.circular(20)),
+              width: Get.width,
               height: Get.height / 14,
               child: TextButton.icon(
                 icon: Image.asset(
@@ -46,7 +49,8 @@ class WelcomeScreen extends StatelessWidget {
                 onPressed: () => print('he'),
                 label: const Text(
                   'Sign in to Google',
-                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -54,22 +58,20 @@ class WelcomeScreen extends StatelessWidget {
               height: Get.height / 18,
             ),
             Container(
+              margin: EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
                   color: AppConstant.appSecondaryColor,
                   border: Border.all(color: Colors.red),
-                  borderRadius: BorderRadius.circular(25)),
-              width: Get.width / 1.2,
-              height: Get.height / 14 ,
+                  borderRadius: BorderRadius.circular(20)),
+              width: Get.width,
+              height: Get.height / 14,
               child: TextButton.icon(
-                icon: Image.asset(
-                  'assets/images/email-icon.png',
-                  width: 30,
-                  height: 30,
-                ),
+                icon: const Icon(Icons.email),
                 onPressed: () => print('he'),
                 label: const Text(
                   'Sign In with Email',
-                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                 ),
               ),
             ),
