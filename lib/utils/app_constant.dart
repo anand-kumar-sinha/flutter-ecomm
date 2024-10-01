@@ -7,6 +7,6 @@ class AppConstant {
   static String appDescription = "Loot Bazar is a simple game that allows users to collect and trade items";
   static String appPoweredBy = "Ands";
   static const appMainColor = Color.fromRGBO(255, 0, 21, 0.3);
-  static const appSecondaryColor = Color.fromRGBO(255, 0, 21, 0.6);
+  static const appSecondaryColor = Color.fromRGBO(255, 255, 255, 0.4);
   static const appTextColor = Colors.white;
 }
