@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "23328293886",
+    "project_id": "ands-loot-bazar",
+    "storage_bucket": "ands-loot-bazar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23328293886:android:60896cf50c833ba5d6f6af",
+        "android_client_info": {
+          "package_name": "com.example.ecomm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZt8pKRJlQgviJWk5NSLEYVPfSuaChxDE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

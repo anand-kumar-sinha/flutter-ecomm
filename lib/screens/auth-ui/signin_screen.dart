@@ -127,7 +127,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        "Don't have any account?",
+                        "Don't have any account? ",
                         style: TextStyle(color: Colors.red),
                       ),
                       GestureDetector(

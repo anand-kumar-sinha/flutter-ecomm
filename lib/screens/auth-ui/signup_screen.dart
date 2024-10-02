@@ -170,7 +170,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        "Already have a account?",
+                        "Already have a account? ",
                         style: TextStyle(color: Colors.red),
                       ),
                       GestureDetector(
