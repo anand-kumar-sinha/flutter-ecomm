@@ -1,3 +1,4 @@
+import 'package:ecomm/controllers/google_signin_controller.dart';
 import 'package:ecomm/screens/auth-ui/signin_screen.dart';
 import 'package:ecomm/utils/app_constant.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,10 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({super.key});
+  WelcomeScreen({super.key});
+
+  final GoogleSignInController _googleSignInController =
+      Get.put(GoogleSignInController());
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +51,7 @@ class WelcomeScreen extends StatelessWidget {
                   width: 20,
                   height: 20,
                 ),
-                onPressed: () => print('he'),
+                onPressed: () => _googleSignInController.signInWithGoogle(),
                 label: const Text(
                   'Sign in to Google',
                   style:
