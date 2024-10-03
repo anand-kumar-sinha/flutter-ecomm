@@ -1,6 +1,5 @@
 import 'package:ecomm/utils/app_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
@@ -29,7 +28,9 @@ class SignInController extends GetxController {
       Get.snackbar("Error", "$e",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: AppConstant.appMainColor,
-          colorText: Colors.red);
+          colorText: AppConstant.appTextColor);
     }
+
+    return null;
   }
 }

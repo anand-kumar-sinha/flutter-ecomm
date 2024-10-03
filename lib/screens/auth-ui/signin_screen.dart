@@ -1,4 +1,5 @@
 import 'package:ecomm/controllers/sign_in_controller.dart';
+import 'package:ecomm/screens/auth-ui/forgetpassword_screen.dart';
 import 'package:ecomm/screens/auth-ui/signup_screen.dart';
 import 'package:ecomm/screens/user-panel/main_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -114,11 +115,16 @@ class _SignInScreenState extends State<SignInScreen> {
                       )),
                   Container(
                     alignment: Alignment.bottomRight,
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    child: const Text(
-                      'Forgot Password?',
-                      style: TextStyle(
-                        color: Colors.red,
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: GestureDetector(
+                      onTap: (){
+                        Get.to(ForgetpasswordScreen());
+                      },
+                      child: const Text(
+                        'Forgot Password?',
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
                       ),
                     ),
                   ),

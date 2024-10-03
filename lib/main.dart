@@ -1,5 +1,6 @@
 import 'package:ecomm/firebase_options.dart';
 import 'package:ecomm/screens/auth-ui/splash_screen.dart';
+import 'package:ecomm/utils/app_constant.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -12,6 +13,17 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
+  configLoading();
+}
+
+void configLoading() {
+  EasyLoading.instance
+    ..backgroundColor = Colors.blue // Set your custom background color
+    ..textColor = Colors.yellow // Set your custom text color
+    ..indicatorColor = Colors.white // Set indicator color (optional)
+    ..maskColor = Colors.black.withOpacity(0.5) // Set mask color (optional)
+    ..userInteractions = false // Disable user interaction while loading
+    ..dismissOnTap = false;
 }
 
 class MyApp extends StatelessWidget {

@@ -6,6 +6,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../utils/app_constant.dart';
+
 class GoogleSignInController {
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -55,7 +57,10 @@ class GoogleSignInController {
       }
     } catch (e) {
       EasyLoading.dismiss();
-      print('Google sign in failed: $e');
+      Get.snackbar("Error", "$e",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: AppConstant.appMainColor,
+          colorText: AppConstant.appTextColor);
     }
   }
 }

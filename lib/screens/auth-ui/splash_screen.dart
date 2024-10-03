@@ -1,11 +1,6 @@
 import 'dart:async';
-
-import 'package:ecomm/screens/auth-ui/signin_screen.dart';
-import 'package:ecomm/screens/auth-ui/signup_screen.dart';
 import 'package:ecomm/screens/auth-ui/welcome_screen.dart';
-import 'package:ecomm/screens/user-panel/main_screen.dart';
 import 'package:ecomm/utils/app_constant.dart';
-import 'package:ecomm/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -21,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 6), () {
       Get.offAll(() =>  WelcomeScreen());
     });
   }
