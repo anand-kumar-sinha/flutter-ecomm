@@ -20,6 +20,9 @@ class _SignInScreenState extends State<SignInScreen> {
       return Scaffold(
         appBar: AppBar(
             backgroundColor: AppConstant.appMainColor,
+            iconTheme: const IconThemeData(
+              color: AppConstant.appTextColor
+            ),
             title: Center(
               child: Text(AppConstant.appMainName,
                   style: const TextStyle(
@@ -131,7 +134,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         style: TextStyle(color: Colors.red),
                       ),
                       GestureDetector(
-                        onTap: (() => Get.offAll(const SignupScreen())),
+                        onTap: (() => Get.to(const SignupScreen())),
                         child: const Text(
                           'Sign Up',
                           style: TextStyle(

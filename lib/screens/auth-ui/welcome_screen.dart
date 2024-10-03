@@ -72,7 +72,7 @@ class WelcomeScreen extends StatelessWidget {
               height: Get.height / 14,
               child: TextButton.icon(
                 icon: const Icon(Icons.email),
-                onPressed: () => Get.offAll(const SignInScreen()),
+                onPressed: () => Get.to(const SignInScreen()),
                 label: const Text(
                   'Sign In with Email',
                   style:
