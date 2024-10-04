@@ -1,4 +1,6 @@
+import 'package:ecomm/controllers/get_user_data_controller.dart';
 import 'package:ecomm/controllers/sign_in_controller.dart';
+import 'package:ecomm/screens/admin-panel/admin_main_screen.dart';
 import 'package:ecomm/screens/auth-ui/forgetpassword_screen.dart';
 import 'package:ecomm/screens/auth-ui/signup_screen.dart';
 import 'package:ecomm/screens/user-panel/main_screen.dart';
@@ -19,6 +21,8 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final SignInController signInController = Get.put(SignInController());
+  final GetUserDataController getUserDataController =
+      Get.put(GetUserDataController());
   TextEditingController userEmail = TextEditingController();
   TextEditingController userPassword = TextEditingController();
 
@@ -117,7 +121,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     alignment: Alignment.bottomRight,
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Get.to(ForgetpasswordScreen());
                       },
                       child: const Text(
@@ -155,13 +159,18 @@ class _SignInScreenState extends State<SignInScreen> {
 
                         if (userCredential != null) {
                           if (userCredential.user!.emailVerified) {
+                            var userData = await getUserDataController
+                                .getUserdata(userCredential!.user!.uid);
                             Get.snackbar("Success", "Login Successfully",
                                 snackPosition: SnackPosition.BOTTOM,
                                 backgroundColor: AppConstant.appMainColor,
                                 colorText: AppConstant.appTextColor);
 
-                            Get.offAll(MainScreen());
-                            return;
+                            if (userData[0]["isAdmin"] == true) {
+                              Get.offAll(const AdminMainScreen());
+                            } else {
+                              Get.offAll(const MainScreen());
+                            }
                           } else {
                             Get.snackbar("Error", "Please Verify Email",
                                 snackPosition: SnackPosition.BOTTOM,
