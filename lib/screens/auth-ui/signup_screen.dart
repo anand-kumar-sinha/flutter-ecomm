@@ -198,7 +198,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
                         UserCredential? userCredential =
                             await signUpController.signUpMethod(
-                                name, email, phone, password, userDeviceToken);
+                                name, email, phone, password);
 
                         if (userCredential != null) {
                           Get.snackbar("Verification",
