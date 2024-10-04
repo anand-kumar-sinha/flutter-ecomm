@@ -1,6 +1,9 @@
+import 'package:ecomm/screens/auth-ui/welcome_screen.dart';
 import 'package:ecomm/utils/app_constant.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class CustomDrawerWidget extends StatefulWidget {
   const CustomDrawerWidget({super.key});
@@ -111,11 +114,19 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
                 trailing: Icon(Icons.arrow_forward_ios_rounded),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: ListTile(
+                onTap: () async {
+                  GoogleSignIn googleSignIn = GoogleSignIn();
+                  FirebaseAuth _auth = FirebaseAuth.instance;
+                  await _auth.signOut();
+
+                  await googleSignIn.signOut();
+                  Get.offAll(WelcomeScreen());
+                },
                 titleAlignment: ListTileTitleAlignment.center,
-                titleTextStyle: TextStyle(
+                titleTextStyle: const TextStyle(
                     color: AppConstant.appTextColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 20),

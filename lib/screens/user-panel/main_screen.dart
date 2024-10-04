@@ -1,5 +1,6 @@
 import 'package:ecomm/screens/auth-ui/welcome_screen.dart';
 import 'package:ecomm/utils/app_constant.dart';
+import 'package:ecomm/widgets/banner_widget.dart';
 import 'package:ecomm/widgets/custom_drawer_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -27,26 +28,17 @@ class _MainScreenState extends State<MainScreen> {
               fontWeight: FontWeight.bold,
             )),
         centerTitle: true,
-        actions: [
-          GestureDetector(
-            onTap: () async {
-              GoogleSignIn googleSignIn = GoogleSignIn();
-              FirebaseAuth _auth = FirebaseAuth.instance;
-              await _auth.signOut();
-
-              await googleSignIn.signOut();
-              Get.offAll(WelcomeScreen());
-            },
-            child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.logout,
-                  color: AppConstant.appTextColor,
-                )),
-          )
-        ],
       ),
-      drawer: CustomDrawerWidget(),
+      drawer: const CustomDrawerWidget(),
+      body: const SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            SizedBox(height:7),
+            BannerWidget(),
+          ],
+        ),
+      ),
     );
   }
 }

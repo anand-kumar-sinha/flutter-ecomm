@@ -29,24 +29,7 @@ class _AdminMainScreenState extends State<AdminMainScreen> {
               fontWeight: FontWeight.bold,
             )),
         centerTitle: true,
-        actions: [
-          GestureDetector(
-            onTap: () async {
-              GoogleSignIn googleSignIn = GoogleSignIn();
-              FirebaseAuth _auth = FirebaseAuth.instance;
-              await _auth.signOut();
-
-              await googleSignIn.signOut();
-              Get.offAll(WelcomeScreen());
-            },
-            child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.logout,
-                  color: AppConstant.appTextColor,
-                )),
-          )
-        ],
+      
       ),
       drawer: CustomDrawerWidget(),
     );
