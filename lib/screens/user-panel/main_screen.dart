@@ -18,34 +18,35 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors
     return Scaffold(
-        appBar: AppBar(
-      backgroundColor: AppConstant.appMainColor,
-      title: Text(AppConstant.appMainName,
-          style: const TextStyle(
-            color: AppConstant.appTextColor,
-            fontWeight: FontWeight.bold,
-          )),
-      centerTitle: true,
-      actions: [
-        GestureDetector(
-          onTap: () async {
-            GoogleSignIn googleSignIn = GoogleSignIn();
-            FirebaseAuth _auth = FirebaseAuth.instance;
-            await _auth.signOut();
+      appBar: AppBar(
+        iconTheme:const IconThemeData(color: AppConstant.appTextColor),
+        backgroundColor: AppConstant.appMainColor,
+        title: Text(AppConstant.appMainName,
+            style: const TextStyle(
+              color: AppConstant.appTextColor,
+              fontWeight: FontWeight.bold,
+            )),
+        centerTitle: true,
+        actions: [
+          GestureDetector(
+            onTap: () async {
+              GoogleSignIn googleSignIn = GoogleSignIn();
+              FirebaseAuth _auth = FirebaseAuth.instance;
+              await _auth.signOut();
 
-            await googleSignIn.signOut();
-            Get.offAll(WelcomeScreen());
-          },
-          child: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.logout,
-                color: AppConstant.appTextColor,
-              )),
-        )
-      ],
-    ),
-    drawer: CustomDrawerWidget(),
+              await googleSignIn.signOut();
+              Get.offAll(WelcomeScreen());
+            },
+            child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.logout,
+                  color: AppConstant.appTextColor,
+                )),
+          )
+        ],
+      ),
+      drawer: CustomDrawerWidget(),
     );
   }
 }

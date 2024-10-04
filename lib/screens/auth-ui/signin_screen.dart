@@ -30,7 +30,7 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
       return Scaffold(
-        appBar: AppBar(
+        appBar: AppBar( 
             backgroundColor: AppConstant.appMainColor,
             iconTheme: const IconThemeData(color: AppConstant.appTextColor),
             title: Center(
