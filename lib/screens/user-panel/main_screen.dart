@@ -2,6 +2,7 @@ import 'package:ecomm/utils/app_constant.dart';
 import 'package:ecomm/widgets/banner_widget.dart';
 import 'package:ecomm/widgets/category_widget.dart';
 import 'package:ecomm/widgets/custom_drawer_widget.dart';
+import 'package:ecomm/widgets/flash_sale_widget.dart';
 import 'package:ecomm/widgets/heading_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -39,14 +40,25 @@ class _MainScreenState extends State<MainScreen> {
               const BannerWidget(),
               //heading
               HeadingWidget(
-                headingSubTitle: 'Low Budget',
+                headingSubTitle: 'Budget',
                 headingTitle: 'Categories',
                 buttonText: 'See more >',
                 onTap: () {},
               ),
 
               //category
-             CategoryWidget(),
+              const CategoryWidget(),
+
+              //flash sale heading
+              HeadingWidget(
+                headingSubTitle: 'Budget',
+                headingTitle: 'Flash Sale',
+                buttonText: 'See more >',
+                onTap: () {},
+              ),
+
+              //category
+              const FlashSaleWidget(),
             ],
           ),
         ),

@@ -5,7 +5,6 @@ import 'package:ecomm/utils/app_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_card/image_card.dart';
 
 class CategoryWidget extends StatefulWidget {
   const CategoryWidget({super.key});
@@ -18,11 +17,11 @@ class _CategoryWidgetState extends State<CategoryWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: FirebaseFirestore.instance.collection('categorie').get(),
+        future: FirebaseFirestore.instance.collection('categories').get(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return const Center(
-              child: Icon(Icons.error_rounded),
+              child: Icon(Icons.error_rounded, color: AppConstant.appMainColor,),
             );
           }
 
@@ -38,7 +37,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
 
           if (snapshot.data!.docs.isEmpty) {
             return const Center(
-              child: Icon(Icons.android_rounded),
+              child: Icon(Icons.android_rounded,color: AppConstant.appMainColor,),
             );
           }
 
@@ -55,7 +54,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                     categoryId: snapshot.data!.docs[index]['categoryId'],
                     categoryImg: snapshot.data!.docs[index]['categoryImg'],
                     categoryName: snapshot.data!.docs[index]['categoryName'],
-                    createdAt: snapshot.data!.docs[index]['createdAt'],
+                    createdAt: snapshot.data!.docs[index] ['createdAt'],
                     updatedAt: snapshot.data!.docs[index]['updatedAt'],
                   );
                   return Container(
@@ -66,7 +65,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                           width: 1.0,
                         ),
                         borderRadius: BorderRadius.circular(15.0)),
-                        margin: EdgeInsets.symmetric(horizontal: 5),
+                        margin: const EdgeInsets.symmetric(horizontal: 5),
                     child: Row(
                       children: [
                         Padding(
@@ -88,7 +87,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                                       const Duration(milliseconds: 500),
                                 ),
                               ),
-                              Text(categoryModel.categoryName, style: TextStyle(color: AppConstant.appTextColor, fontWeight: FontWeight.bold, fontSize: 15))
+                              Text(categoryModel.categoryName, style: const TextStyle(color: AppConstant.appTextColor, fontWeight: FontWeight.bold, fontSize: 15))
                             ],
                           ),
                         )
