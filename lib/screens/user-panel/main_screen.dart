@@ -1,11 +1,9 @@
-import 'package:ecomm/screens/auth-ui/welcome_screen.dart';
 import 'package:ecomm/utils/app_constant.dart';
 import 'package:ecomm/widgets/banner_widget.dart';
+import 'package:ecomm/widgets/category_widget.dart';
 import 'package:ecomm/widgets/custom_drawer_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ecomm/widgets/heading_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -20,7 +18,7 @@ class _MainScreenState extends State<MainScreen> {
     // ignore: prefer_const_constructors
     return Scaffold(
       appBar: AppBar(
-        iconTheme:const IconThemeData(color: AppConstant.appTextColor),
+        iconTheme: const IconThemeData(color: AppConstant.appTextColor),
         backgroundColor: AppConstant.appMainColor,
         title: Text(AppConstant.appMainName,
             style: const TextStyle(
@@ -30,13 +28,27 @@ class _MainScreenState extends State<MainScreen> {
         centerTitle: true,
       ),
       drawer: const CustomDrawerWidget(),
-      body: const SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            SizedBox(height:7),
-            BannerWidget(),
-          ],
+      body: Container(
+        color: AppConstant.appMainColor,
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            children: [
+              const SizedBox(height: 7),
+              //banner
+              const BannerWidget(),
+              //heading
+              HeadingWidget(
+                headingSubTitle: 'Low Budget',
+                headingTitle: 'Categories',
+                buttonText: 'See more >',
+                onTap: () {},
+              ),
+
+              //category
+             CategoryWidget(),
+            ],
+          ),
         ),
       ),
     );

@@ -17,36 +17,34 @@ class _BannerWidgetState extends State<BannerWidget> {
   final BannerConttroller _bannerConttroller = Get.put(BannerConttroller());
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Obx(() {
-        return CarouselSlider(
-          items: _bannerConttroller.bannerUrl
-              .map(
-                (imageUrl) => ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: CachedNetworkImage(
-                      imageUrl: imageUrl,
-                      fit: BoxFit.cover,
-                      width: Get.width - 10,
-                      placeholder: (context, url) => const ColoredBox(
-                            color: Colors.white,
-                            child: Center(
-                              child: CupertinoActivityIndicator(),
-                            ),
+    return Obx(() {
+      return CarouselSlider(
+        items: _bannerConttroller.bannerUrl
+            .map(
+              (imageUrl) => ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: CachedNetworkImage(
+                    imageUrl: imageUrl,
+                    fit: BoxFit.cover,
+                    width: Get.width - 10,
+                    placeholder: (context, url) => const ColoredBox(
+                          color: Colors.white,
+                          child: Center(
+                            child: CupertinoActivityIndicator(),
                           ),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error)),
-                ),
-              )
-              .toList(),
-          options: CarouselOptions(
-            scrollDirection: Axis.horizontal,
-            autoPlay: true,
-            aspectRatio: 2.5,
-            viewportFraction: 1,
-          ),
-        );
-      }),
-    );
+                        ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error)),
+              ),
+            )
+            .toList(),
+        options: CarouselOptions(
+          scrollDirection: Axis.horizontal,
+          autoPlay: true,
+          aspectRatio: 2.5,
+          viewportFraction: 1,
+        ),
+      );
+    });
   }
 }
