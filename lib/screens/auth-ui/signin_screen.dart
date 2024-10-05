@@ -30,16 +30,24 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
       return Scaffold(
-        appBar: AppBar( 
-            backgroundColor: AppConstant.appMainColor,
-            iconTheme: const IconThemeData(color: AppConstant.appTextColor),
-            title: Center(
-              child: Text(AppConstant.appMainName,
-                  style: const TextStyle(
-                    color: AppConstant.appTextColor,
-                    fontWeight: FontWeight.bold,
-                  )),
-            )),
+        appBar: AppBar(
+          leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_rounded),
+          color: AppConstant.appTextColor,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+          backgroundColor: AppConstant.appMainColor,
+          title: Text(
+            AppConstant.appMainName,
+            style: const TextStyle(
+              color: AppConstant.appTextColor,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
+        ),
         body: SingleChildScrollView(
           child: Center(
             child: Container(

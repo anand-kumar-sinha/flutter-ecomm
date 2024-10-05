@@ -1,3 +1,4 @@
+import 'package:ecomm/screens/user-panel/all_categories_screen.dart';
 import 'package:ecomm/utils/app_constant.dart';
 import 'package:ecomm/widgets/banner_widget.dart';
 import 'package:ecomm/widgets/category_widget.dart';
@@ -5,6 +6,7 @@ import 'package:ecomm/widgets/custom_drawer_widget.dart';
 import 'package:ecomm/widgets/flash_sale_widget.dart';
 import 'package:ecomm/widgets/heading_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -43,7 +45,9 @@ class _MainScreenState extends State<MainScreen> {
                 headingSubTitle: 'Budget',
                 headingTitle: 'Categories',
                 buttonText: 'See more >',
-                onTap: () {},
+                onTap: () {
+                  Get.to(()=>  AllCategoriesScreen());
+                },
               ),
 
               //category

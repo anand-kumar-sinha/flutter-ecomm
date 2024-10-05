@@ -48,15 +48,18 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: AppConstant.appMainColor,
-      appBar: AppBar(
-          backgroundColor: AppConstant.appMainColor,
-          title: Center(
-            child: Text(AppConstant.appMainName,
-                style: const TextStyle(
-                  color: AppConstant.appTextColor,
-                  fontWeight: FontWeight.bold,
-                )),
-          )),
+      appBar:AppBar(
+        iconTheme: const IconThemeData(color: AppConstant.appTextColor),
+        backgroundColor: AppConstant.appMainColor,
+        title: Text(
+          AppConstant.appMainName,
+          style: const TextStyle(
+            color: AppConstant.appTextColor,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: Center(
         child: Container(
           decoration: const BoxDecoration(color: AppConstant.appMainColor),

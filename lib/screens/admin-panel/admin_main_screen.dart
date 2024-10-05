@@ -21,15 +21,16 @@ class _AdminMainScreenState extends State<AdminMainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme:const IconThemeData(color: AppConstant.appTextColor),
+        iconTheme: const IconThemeData(color: AppConstant.appTextColor),
         backgroundColor: AppConstant.appMainColor,
-        title: Text(AppConstant.appMainName,
-            style: const TextStyle(
-              color: AppConstant.appTextColor,
-              fontWeight: FontWeight.bold,
-            )),
+        title: Text(
+          AppConstant.appMainName,
+          style: const TextStyle(
+            color: AppConstant.appTextColor,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         centerTitle: true,
-      
       ),
       drawer: CustomDrawerWidget(),
     );

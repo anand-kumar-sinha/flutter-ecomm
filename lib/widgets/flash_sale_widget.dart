@@ -20,6 +20,7 @@ class _FlashSaleWidgetState extends State<FlashSaleWidget> {
         future: FirebaseFirestore.instance
             .collection('products')
             .where('isSale', isEqualTo: true)
+            .limit(4)
             .get(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
@@ -126,16 +127,16 @@ class _FlashSaleWidgetState extends State<FlashSaleWidget> {
                                   Text(
                                     productModel.fullPrice,
                                     style: const TextStyle(
-                                      decoration: TextDecoration.lineThrough,
-                                      decorationColor: Colors.red,
-                                      decorationThickness: 3
-                                    ),
+                                        decoration: TextDecoration.lineThrough,
+                                        decorationColor: Colors.red,
+                                        decorationThickness: 3),
                                   ),
                                   Text(
                                     '  ${productModel.salePrice}',
                                     style: const TextStyle(
                                         color: Colors.red,
-                                        fontWeight: FontWeight.bold, fontSize: 17),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17),
                                   )
                                 ],
                               )

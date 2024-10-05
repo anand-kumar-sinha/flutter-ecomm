@@ -28,15 +28,23 @@ class _SignupScreenState extends State<SignupScreen> {
     return KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
       return Scaffold(
         appBar: AppBar(
-            iconTheme: const IconThemeData(color: AppConstant.appTextColor),
-            backgroundColor: AppConstant.appMainColor,
-            title: Center(
-              child: Text(AppConstant.appMainName,
-                  style: const TextStyle(
-                    color: AppConstant.appTextColor,
-                    fontWeight: FontWeight.bold,
-                  )),
-            )),
+          leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_rounded),
+          color: AppConstant.appTextColor,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+          backgroundColor: AppConstant.appMainColor,
+          title: Text(
+            AppConstant.appMainName,
+            style: const TextStyle(
+              color: AppConstant.appTextColor,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
+        ),
         body: SingleChildScrollView(
           child: Center(
             child: Container(
@@ -196,9 +204,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           return;
                         }
 
-                        UserCredential? userCredential =
-                            await signUpController.signUpMethod(
-                                name, email, phone, password);
+                        UserCredential? userCredential = await signUpController
+                            .signUpMethod(name, email, phone, password);
 
                         if (userCredential != null) {
                           Get.snackbar("Verification",

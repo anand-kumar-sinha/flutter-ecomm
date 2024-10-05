@@ -15,14 +15,17 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: AppConstant.appMainColor,
-          title: Center(
-            child: Text(AppConstant.appMainName,
-                style: const TextStyle(
-                  color: AppConstant.appTextColor,
-                  fontWeight: FontWeight.bold,
-                )),
-          )),
+        iconTheme: const IconThemeData(color: AppConstant.appTextColor),
+        backgroundColor: AppConstant.appMainColor,
+        title: Text(
+          AppConstant.appMainName,
+          style: const TextStyle(
+            color: AppConstant.appTextColor,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: Container(
         color: AppConstant.appMainColor,
         child: Column(
