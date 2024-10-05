@@ -90,6 +90,8 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                     updatedAt: snapshot.data!.docs[index]['updatedAt'],
                   );
                   return Container(
+                    height: Get.height / 10,
+                    width: Get.width / 2.3,
                     decoration: BoxDecoration(
                         color: AppConstant.appSecondaryColor,
                         border: Border.all(
@@ -99,36 +101,33 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                         borderRadius: BorderRadius.circular(15.0)),
                     margin:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Column(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(15.0),
-                                child: CachedNetworkImage(
-                                  imageUrl: categoryModel.categoryImg,
-                                  height: 150,
-                                  width: 172,
-                                  fit: BoxFit.cover,
-                                  placeholder: (context, url) =>
-                                      const CupertinoActivityIndicator(),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
-                                  fadeInDuration:
-                                      const Duration(milliseconds: 500),
-                                ),
-                              ),
-                              Text(categoryModel.categoryName,
-                                  style: const TextStyle(
-                                      color: AppConstant.appTextColor,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15))
-                            ],
+                    child: Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Column(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(15.0),
+                            child: CachedNetworkImage(
+                              imageUrl: categoryModel.categoryImg,
+                              height: 150,
+                              width: Get.width / 2.3,
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) =>
+                                  const CupertinoActivityIndicator(),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                              fadeInDuration: const Duration(milliseconds: 500),
+                            ),
                           ),
-                        )
-                      ],
+                          Text(
+                            categoryModel.categoryName,
+                            style: const TextStyle(
+                                color: AppConstant.appTextColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          )
+                        ],
+                      ),
                     ),
                   );
                 },
