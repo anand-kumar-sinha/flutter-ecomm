@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecomm/models/category_model.dart';
+import 'package:ecomm/screens/user-panel/single_category_product_screen.dart';
 import 'package:ecomm/utils/app_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -68,27 +69,32 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                         margin: const EdgeInsets.symmetric(horizontal: 5),
                     child: Row(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Column(
-                            children: [
-                              ClipRRect(
-                                 borderRadius: BorderRadius.circular(15.0),
-                                child: CachedNetworkImage(
-                                  imageUrl: categoryModel.categoryImg,
-                                  height: 150,
-                                  width: 150,
-                                  fit: BoxFit.cover,
-                                  placeholder: (context, url) =>
-                                      const CupertinoActivityIndicator(),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
-                                  fadeInDuration:
-                                      const Duration(milliseconds: 500),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(()=> SingleCategoryProductScreen(categoryId: categoryModel.categoryId));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: Column(
+                              children: [
+                                ClipRRect(
+                                   borderRadius: BorderRadius.circular(15.0),
+                                  child: CachedNetworkImage(
+                                    imageUrl: categoryModel.categoryImg,
+                                    height: 150,
+                                    width: 150,
+                                    fit: BoxFit.cover,
+                                    placeholder: (context, url) =>
+                                        const CupertinoActivityIndicator(),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(Icons.error),
+                                    fadeInDuration:
+                                        const Duration(milliseconds: 500),
+                                  ),
                                 ),
-                              ),
-                              Text(categoryModel.categoryName, style: const TextStyle(color: AppConstant.appTextColor, fontWeight: FontWeight.bold, fontSize: 15))
-                            ],
+                                Text(categoryModel.categoryName, style: const TextStyle(color: AppConstant.appTextColor, fontWeight: FontWeight.bold, fontSize: 15))
+                              ],
+                            ),
                           ),
                         )
                       ],

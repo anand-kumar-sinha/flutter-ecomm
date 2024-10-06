@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecomm/models/category_model.dart';
+import 'package:ecomm/screens/user-panel/single_category_product_screen.dart';
 import 'package:ecomm/utils/app_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -89,6 +90,7 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                     createdAt: snapshot.data!.docs[index]['createdAt'],
                     updatedAt: snapshot.data!.docs[index]['updatedAt'],
                   );
+
                   return Container(
                     height: Get.height / 10,
                     width: Get.width / 2.3,
@@ -105,18 +107,25 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                       padding: const EdgeInsets.all(5),
                       child: Column(
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(15.0),
-                            child: CachedNetworkImage(
-                              imageUrl: categoryModel.categoryImg,
-                              height: 150,
-                              width: Get.width / 2.3,
-                              fit: BoxFit.cover,
-                              placeholder: (context, url) =>
-                                  const CupertinoActivityIndicator(),
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
-                              fadeInDuration: const Duration(milliseconds: 500),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(() => SingleCategoryProductScreen(
+                                  categoryId: categoryModel.categoryId));
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15.0),
+                              child: CachedNetworkImage(
+                                imageUrl: categoryModel.categoryImg,
+                                height: 150,
+                                width: Get.width / 2.3,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) =>
+                                    const CupertinoActivityIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
+                                fadeInDuration:
+                                    const Duration(milliseconds: 500),
+                              ),
                             ),
                           ),
                           Text(
@@ -132,16 +141,6 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                   );
                 },
               );
-
-              // Container(
-              //   height: Get.height / 5.0,
-              //   child: ListView.builder(
-              //     itemCount: snapshot.data!.docs.length,
-              //     shrinkWrap: true,
-              //     scrollDirection: Axis.horizontal,
-
-              //   ),
-              // );
             }
 
             return Container();

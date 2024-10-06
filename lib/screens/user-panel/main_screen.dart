@@ -1,4 +1,5 @@
 import 'package:ecomm/screens/user-panel/all_categories_screen.dart';
+import 'package:ecomm/screens/user-panel/all_flash_sale_screen.dart';
 import 'package:ecomm/utils/app_constant.dart';
 import 'package:ecomm/widgets/banner_widget.dart';
 import 'package:ecomm/widgets/category_widget.dart';
@@ -46,7 +47,7 @@ class _MainScreenState extends State<MainScreen> {
                 headingTitle: 'Categories',
                 buttonText: 'See more >',
                 onTap: () {
-                  Get.to(()=>  AllCategoriesScreen());
+                  Get.to(() => const AllCategoriesScreen());
                 },
               ),
 
@@ -58,7 +59,9 @@ class _MainScreenState extends State<MainScreen> {
                 headingSubTitle: 'Budget',
                 headingTitle: 'Flash Sale',
                 buttonText: 'See more >',
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => const AllFlashSaleScreen());
+                },
               ),
 
               //category
