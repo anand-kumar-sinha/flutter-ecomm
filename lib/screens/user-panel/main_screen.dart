@@ -1,6 +1,8 @@
 import 'package:ecomm/screens/user-panel/all_categories_screen.dart';
 import 'package:ecomm/screens/user-panel/all_flash_sale_screen.dart';
+import 'package:ecomm/screens/user-panel/all_product_screen.dart';
 import 'package:ecomm/utils/app_constant.dart';
+import 'package:ecomm/widgets/all_product_widget.dart';
 import 'package:ecomm/widgets/banner_widget.dart';
 import 'package:ecomm/widgets/category_widget.dart';
 import 'package:ecomm/widgets/custom_drawer_widget.dart';
@@ -64,8 +66,21 @@ class _MainScreenState extends State<MainScreen> {
                 },
               ),
 
-              //category
+              //flash sale category
               const FlashSaleWidget(),
+
+              //All product heading
+              HeadingWidget(
+                headingSubTitle: 'Budget',
+                headingTitle: 'Flash Sale',
+                buttonText: 'See more >',
+                onTap: () {
+                  Get.to(() => const AllProductScreen());
+                },
+              ),
+
+              //All product category
+              const AllProductWidget(),
             ],
           ),
         ),
