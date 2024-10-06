@@ -32,6 +32,13 @@ class _MainScreenState extends State<MainScreen> {
               fontWeight: FontWeight.bold,
             )),
         centerTitle: true,
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(top: Get.height / 23, bottom: 1),
+            child: Icon(Icons.shopping_cart_checkout_rounded),
+          )
+        ],
+        
       ),
       drawer: const CustomDrawerWidget(),
       body: Container(

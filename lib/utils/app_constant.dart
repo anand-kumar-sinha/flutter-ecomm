@@ -8,5 +8,5 @@ class AppConstant {
   static String appPoweredBy = "Ands";
   static const appMainColor = Color.fromRGBO(255, 0, 21, 0.3);
   static const appSecondaryColor = Color.fromRGBO(255, 255, 255, 0.2);
-  static const appTextColor = Colors.white;
+  static const appTextColor = Colors.black;
 }
