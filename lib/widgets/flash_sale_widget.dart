@@ -1,7 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecomm/models/product_model.dart';
 import 'package:ecomm/utils/app_constant.dart';
+import 'package:ecomm/widgets/product_card_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -86,65 +87,7 @@ class _FlashSaleWidgetState extends State<FlashSaleWidget> {
                         ),
                         borderRadius: BorderRadius.circular(15.0)),
                     margin: const EdgeInsets.symmetric(horizontal: 5),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Column(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(15.0),
-                                child: CachedNetworkImage(
-                                  imageUrl: productModel.productImages[0],
-                                  height: 150,
-                                  width: 150,
-                                  fit: BoxFit.cover,
-                                  placeholder: (context, url) =>
-                                      const CupertinoActivityIndicator(),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
-                                  fadeInDuration:
-                                      const Duration(milliseconds: 500),
-                                ),
-                              ),
-                              SizedBox(
-                                width:
-                                    150, 
-                                child: Text(
-                                  productModel.productName,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    color: AppConstant.appTextColor,
-                                    fontSize: 13,
-                                  ),
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  const Text(
-                                    'Rs:',
-                                  ),
-                                  Text(
-                                    productModel.fullPrice,
-                                    style: const TextStyle(
-                                        decoration: TextDecoration.lineThrough,
-                                        decorationColor: Colors.red,
-                                        decorationThickness: 3),
-                                  ),
-                                  Text(
-                                    '  ${productModel.salePrice}',
-                                    style: const TextStyle(
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 17),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: ProductCardWidget(productModel: productModel, height: 150, width: 150)
                   );
                 },
               ),

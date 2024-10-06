@@ -1,7 +1,6 @@
 import 'package:ecomm/utils/app_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class HeadingWidget extends StatelessWidget {
   final String headingTitle;

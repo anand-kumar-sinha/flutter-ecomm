@@ -72,7 +72,7 @@ class _MainScreenState extends State<MainScreen> {
               //All product heading
               HeadingWidget(
                 headingSubTitle: 'Budget',
-                headingTitle: 'Flash Sale',
+                headingTitle: 'All Products',
                 buttonText: 'See more >',
                 onTap: () {
                   Get.to(() => const AllProductScreen());
