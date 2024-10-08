@@ -1,11 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecomm/models/cart_model.dart';
 import 'package:ecomm/models/product_model.dart';
 import 'package:ecomm/utils/app_constant.dart';
 import 'package:ecomm/widgets/category_widget.dart';
 import 'package:ecomm/widgets/flash_sale_widget.dart';
 import 'package:ecomm/widgets/heading_widget.dart';
 import 'package:ecomm/widgets/similar_product_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -20,6 +23,7 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     int salePriceInt = ((int.parse(widget.productModel.salePrice) *
@@ -158,25 +162,28 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               )
                             ],
                           ),
-                          
-                          widget.productModel.isSale?  Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: Container(
-                              padding: const  EdgeInsets.all(6),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: AppConstant.appMainColor,
-                              ),
-                              child: const Text(
-                                'Top Discount on Sale',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ): const SizedBox(),
+
+                          widget.productModel.isSale
+                              ? Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(6),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: AppConstant.appMainColor,
+                                    ),
+                                    child: const Text(
+                                      'Top Discount on Sale',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : const SizedBox(),
                           Row(
                             children: [
                               const Icon(Icons.delivery_dining),
@@ -287,7 +294,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       Icons.shopping_cart_checkout_rounded,
                       color: Colors.red,
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      await checkProductExistence(uId: user!.uid);
+                    },
                     label: const Text(
                       'Add to cart',
                       style: TextStyle(
@@ -324,5 +333,57 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> checkProductExistence(
+      {required String uId, int quantityIncrement = 1}) async {
+    final DocumentReference documentReference = await FirebaseFirestore.instance
+        .collection('cart')
+        .doc(uId)
+        .collection('cartOrders')
+        .doc(widget.productModel.productId.toString());
+
+    DocumentSnapshot snapshot = await documentReference.get();
+
+    if (snapshot.exists) {
+      int currentQt = snapshot['productQuantity'];
+      int updatedQuantity = currentQt + quantityIncrement;
+      double salePrice =
+          double.parse(widget.productModel.salePrice) * updatedQuantity;
+      double fullPrice =
+          double.parse(widget.productModel.fullPrice) * updatedQuantity;
+
+      await documentReference.update({
+        'productQuantity': updatedQuantity,
+        'productSalePrice': salePrice,
+        'productFullPrice': fullPrice,
+      });
+    } else {
+      await FirebaseFirestore.instance.collection('cart').doc(uId).set(
+        {
+          "uId": uId,
+          "createdAt": DateTime.now(),
+        },
+      );
+
+      CartModel cartModel = CartModel(
+        productId: widget.productModel.productId,
+        categoryId: widget.productModel.categoryId,
+        productName: widget.productModel.productName,
+        categoryName: widget.productModel.categoryName,
+        salePrice: widget.productModel.salePrice,
+        fullPrice: widget.productModel.fullPrice,
+        productImages: widget.productModel.productImages,
+        deliveryTime: widget.productModel.deliveryTime,
+        isSale: widget.productModel.isSale,
+        productDescription: widget.productModel.productDiscription,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+        productQuantity: 1,
+        productFullPrice: double.parse(widget.productModel.fullPrice),
+        productSalePrice: double.parse(widget.productModel.salePrice),
+      );
+      await documentReference.set(cartModel.toMap());
+    }
   }
 }

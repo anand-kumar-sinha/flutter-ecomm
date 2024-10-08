@@ -45,7 +45,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           if (snapshot.data != null) {
             return SizedBox(
               width: Get.width,
-              height: 185,
+              height: 186,
               child: ListView.builder(
                 itemCount: snapshot.data!.docs.length,
                 shrinkWrap: true,

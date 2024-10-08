@@ -1,11 +1,9 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecomm/models/product_model.dart';
 import 'package:ecomm/utils/app_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'product_card_widget.dart';
 
 class AllProductWidget extends StatefulWidget {

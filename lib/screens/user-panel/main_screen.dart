@@ -1,6 +1,7 @@
 import 'package:ecomm/screens/user-panel/all_categories_screen.dart';
 import 'package:ecomm/screens/user-panel/all_flash_sale_screen.dart';
 import 'package:ecomm/screens/user-panel/all_product_screen.dart';
+import 'package:ecomm/screens/user-panel/cart_screen.dart';
 import 'package:ecomm/utils/app_constant.dart';
 import 'package:ecomm/widgets/all_product_widget.dart';
 import 'package:ecomm/widgets/banner_widget.dart';
@@ -34,11 +35,16 @@ class _MainScreenState extends State<MainScreen> {
         centerTitle: true,
         actions: [
           Padding(
-            padding: EdgeInsets.only(top: Get.height / 23, bottom: 1),
-            child: Icon(Icons.shopping_cart_checkout_rounded),
+            padding: const EdgeInsets.only(bottom: 8, right: 3),
+            child: GestureDetector(
+              onTap: () => Get.to(()=> CartScreen()),
+              child: const Icon(
+                Icons.shopping_cart_checkout_rounded,
+                size: 27,
+              ),
+            ),
           )
         ],
-        
       ),
       drawer: const CustomDrawerWidget(),
       body: Container(
