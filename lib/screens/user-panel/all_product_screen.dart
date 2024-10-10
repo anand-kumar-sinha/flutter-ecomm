@@ -1,6 +1,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecomm/models/product_model.dart';
+import 'package:ecomm/screens/user-panel/cart_screen.dart';
 import 'package:ecomm/utils/app_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,14 +29,27 @@ class _AllProductScreenState extends State<AllProductScreen> {
           },
         ),
         backgroundColor: AppConstant.appMainColor,
-        title: Text(
-          AppConstant.appMainName,
-          style: const TextStyle(
+        title: const Text(
+          'Products',
+          style: TextStyle(
             color: AppConstant.appTextColor,
             fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,
+        iconTheme: const IconThemeData(color: AppConstant.appTextColor),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8, right: 3),
+            child: GestureDetector(
+              onTap: () => Get.to(()=> CartScreen()),
+              child: const Icon(
+                Icons.shopping_cart_checkout_rounded,
+                size: 27,
+              ),
+            ),
+          )
+        ],
       ),
       body: Container(
         height: Get.height,

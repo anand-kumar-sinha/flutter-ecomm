@@ -37,7 +37,7 @@ class _MainScreenState extends State<MainScreen> {
           Padding(
             padding: const EdgeInsets.only(bottom: 8, right: 3),
             child: GestureDetector(
-              onTap: () => Get.to(()=> CartScreen()),
+              onTap: () => Get.to(()=> const CartScreen()),
               child: const Icon(
                 Icons.shopping_cart_checkout_rounded,
                 size: 27,

@@ -3,10 +3,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecomm/models/cart_model.dart';
 import 'package:ecomm/models/product_model.dart';
+import 'package:ecomm/screens/user-panel/cart_screen.dart';
 import 'package:ecomm/utils/app_constant.dart';
-import 'package:ecomm/widgets/category_widget.dart';
-import 'package:ecomm/widgets/flash_sale_widget.dart';
-import 'package:ecomm/widgets/heading_widget.dart';
 import 'package:ecomm/widgets/similar_product_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -34,9 +32,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         .abs();
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: AppConstant.appTextColor),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_rounded),
-          color: AppConstant.appTextColor,
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -50,6 +48,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           ),
         ),
         centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8, right: 3),
+            child: GestureDetector(
+              onTap: () => Get.to(() => const CartScreen()),
+              child: const Icon(
+                Icons.shopping_cart_checkout_rounded,
+                size: 27,
+              ),
+            ),
+          )
+        ],
       ),
       body: Container(
         width: Get.width,
@@ -73,7 +83,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   width: Get.width - 10,
                                   placeholder: (context, url) =>
                                       const ColoredBox(
-                                        color: Colors.white,
+                                        color: AppConstant.appMainColor,
                                         child: Center(
                                           child: CupertinoActivityIndicator(),
                                         ),
@@ -337,7 +347,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   Future<void> checkProductExistence(
       {required String uId, int quantityIncrement = 1}) async {
-    final DocumentReference documentReference = await FirebaseFirestore.instance
+    final DocumentReference documentReference = FirebaseFirestore.instance
         .collection('cart')
         .doc(uId)
         .collection('cartOrders')

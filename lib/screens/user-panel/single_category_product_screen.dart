@@ -1,6 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecomm/models/product_model.dart';
+import 'package:ecomm/screens/user-panel/cart_screen.dart';
 import 'package:ecomm/widgets/product_card_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,8 @@ import '../../utils/app_constant.dart';
 
 class SingleCategoryProductScreen extends StatefulWidget {
   final String categoryId;
-  const SingleCategoryProductScreen({super.key, required this.categoryId});
+  final String categoryName;
+  const SingleCategoryProductScreen({super.key, required this.categoryId, required this.categoryName});
 
   @override
   State<SingleCategoryProductScreen> createState() =>
@@ -23,22 +24,34 @@ class _SingleCategoryProductScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: AppConstant.appTextColor),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_rounded),
-          color: AppConstant.appTextColor,
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         backgroundColor: AppConstant.appMainColor,
         title: Text(
-          AppConstant.appMainName,
+          widget.categoryName,
           style: const TextStyle(
             color: AppConstant.appTextColor,
             fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8, right: 3),
+            child: GestureDetector(
+              onTap: () => Get.to(()=> const CartScreen()),
+              child: const Icon(
+                Icons.shopping_cart_checkout_rounded,
+                size: 27,
+              ),
+            ),
+          )
+        ],
       ),
       body: Container(
         height: Get.height,

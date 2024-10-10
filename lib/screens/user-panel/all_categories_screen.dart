@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecomm/models/category_model.dart';
+import 'package:ecomm/screens/user-panel/cart_screen.dart';
 import 'package:ecomm/screens/user-panel/single_category_product_screen.dart';
 import 'package:ecomm/utils/app_constant.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,22 +20,34 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: AppConstant.appTextColor),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_rounded),
-          color: AppConstant.appTextColor,
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         backgroundColor: AppConstant.appMainColor,
-        title: Text(
-          AppConstant.appMainName,
-          style: const TextStyle(
+        title: const Text(
+          'Category',
+          style: TextStyle(
             color: AppConstant.appTextColor,
             fontWeight: FontWeight.bold,
           ),
         ),
         centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8, right: 3),
+            child: GestureDetector(
+              onTap: () => Get.to(()=> const CartScreen()),
+              child: const Icon(
+                Icons.shopping_cart_checkout_rounded,
+                size: 27,
+              ),
+            ),
+          )
+        ],
       ),
       body: Container(
         height: Get.height,
@@ -110,7 +123,7 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                           GestureDetector(
                             onTap: () {
                               Get.to(() => SingleCategoryProductScreen(
-                                  categoryId: categoryModel.categoryId));
+                                  categoryId: categoryModel.categoryId, categoryName: categoryModel.categoryName));
                             },
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(15.0),

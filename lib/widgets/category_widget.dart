@@ -18,11 +18,15 @@ class _CategoryWidgetState extends State<CategoryWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: FirebaseFirestore.instance.collection('categories').limit(4).get(),
+        future:
+            FirebaseFirestore.instance.collection('categories').limit(4).get(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return const Center(
-              child: Icon(Icons.error_rounded, color: AppConstant.appMainColor,),
+              child: Icon(
+                Icons.error_rounded,
+                color: AppConstant.appMainColor,
+              ),
             );
           }
 
@@ -38,7 +42,10 @@ class _CategoryWidgetState extends State<CategoryWidget> {
 
           if (snapshot.data!.docs.isEmpty) {
             return const Center(
-              child: Icon(Icons.android_rounded,color: AppConstant.appMainColor,),
+              child: Icon(
+                Icons.android_rounded,
+                color: AppConstant.appMainColor,
+              ),
             );
           }
 
@@ -55,7 +62,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                     categoryId: snapshot.data!.docs[index]['categoryId'],
                     categoryImg: snapshot.data!.docs[index]['categoryImg'],
                     categoryName: snapshot.data!.docs[index]['categoryName'],
-                    createdAt: snapshot.data!.docs[index] ['createdAt'],
+                    createdAt: snapshot.data!.docs[index]['createdAt'],
                     updatedAt: snapshot.data!.docs[index]['updatedAt'],
                   );
                   return Container(
@@ -66,19 +73,21 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                           width: 1.0,
                         ),
                         borderRadius: BorderRadius.circular(15.0)),
-                        margin: const EdgeInsets.symmetric(horizontal: 5),
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
                     child: Row(
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Get.to(()=> SingleCategoryProductScreen(categoryId: categoryModel.categoryId));
+                            Get.to(() => SingleCategoryProductScreen(
+                                categoryId: categoryModel.categoryId,
+                                categoryName: categoryModel.categoryName));
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(5),
                             child: Column(
                               children: [
                                 ClipRRect(
-                                   borderRadius: BorderRadius.circular(15.0),
+                                  borderRadius: BorderRadius.circular(15.0),
                                   child: CachedNetworkImage(
                                     imageUrl: categoryModel.categoryImg,
                                     height: 150,
@@ -92,7 +101,11 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                                         const Duration(milliseconds: 500),
                                   ),
                                 ),
-                                Text(categoryModel.categoryName, style: const TextStyle(color: AppConstant.appTextColor, fontWeight: FontWeight.bold, fontSize: 15))
+                                Text(categoryModel.categoryName,
+                                    style: const TextStyle(
+                                        color: AppConstant.appTextColor,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15))
                               ],
                             ),
                           ),

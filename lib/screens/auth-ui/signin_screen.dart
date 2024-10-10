@@ -57,7 +57,7 @@ class _SignInScreenState extends State<SignInScreen> {
               child: Column(
                 children: [
                   isKeyboardVisible
-                      ? SizedBox()
+                      ? const SizedBox()
                       : Container(
                           child: Lottie.asset('assets/images/login-icon.json'),
                         ),
@@ -130,7 +130,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: GestureDetector(
                       onTap: () {
-                        Get.to(ForgetpasswordScreen());
+                        Get.to(const ForgetpasswordScreen());
                       },
                       child: const Text(
                         'Forgot Password?',
