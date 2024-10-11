@@ -14,8 +14,8 @@ class CartModel {
   final dynamic createdAt;
   final dynamic updatedAt;
   final int productQuantity;
-  final double productFullPrice;
-  final double productSalePrice;
+  final String productFullPrice;
+  final String productSalePrice;
 
   CartModel({
     required this.productId,

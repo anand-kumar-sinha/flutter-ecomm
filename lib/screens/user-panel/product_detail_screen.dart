@@ -390,8 +390,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
         productQuantity: 1,
-        productFullPrice: double.parse(widget.productModel.fullPrice),
-        productSalePrice: double.parse(widget.productModel.salePrice),
+        productFullPrice: widget.productModel.fullPrice.toString(),
+        productSalePrice: widget.productModel.salePrice.toString(),
       );
       await documentReference.set(cartModel.toMap());
     }
