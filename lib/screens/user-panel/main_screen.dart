@@ -37,7 +37,7 @@ class _MainScreenState extends State<MainScreen> {
           Padding(
             padding: const EdgeInsets.only(bottom: 8, right: 3),
             child: GestureDetector(
-              onTap: () => Get.to(()=> const CartScreen()),
+              onTap: () => Get.to(() => const CartScreen()),
               child: const Icon(
                 Icons.shopping_cart_checkout_rounded,
                 size: 27,
@@ -53,7 +53,23 @@ class _MainScreenState extends State<MainScreen> {
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
+              // const SizedBox(height: 7),
+              //search bar
+              Container(
+                padding: const EdgeInsets.all(8),
+                child: SearchAnchor.bar(
+                  suggestionsBuilder: (context, controller) => {},
+                  barBackgroundColor:
+                      const WidgetStatePropertyAll(Color.fromARGB(0, 255, 255, 255)),
+                  barElevation: const WidgetStatePropertyAll(0),
+                  barHintText: 'Search...',
+                  barSide: const WidgetStatePropertyAll(BorderSide(color: AppConstant.appMainColor, width: 1)),
+                  barLeading: const Icon(Icons.search_rounded, color: Colors.red,),
+                  viewBackgroundColor: Colors.pink[200],
+                ),
+              ),
               const SizedBox(height: 7),
+
               //banner
               const BannerWidget(),
               //heading

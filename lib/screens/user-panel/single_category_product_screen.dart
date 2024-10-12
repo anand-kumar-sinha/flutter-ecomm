@@ -55,6 +55,7 @@ class _SingleCategoryProductScreenState
       ),
       body: Container(
         height: Get.height,
+        width: Get.width,
         color: AppConstant.appMainColor,
         child: FutureBuilder(
           future: FirebaseFirestore.instance
@@ -64,32 +65,54 @@ class _SingleCategoryProductScreenState
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
-              return const Center(
-                child: Icon(
-                  Icons.error_rounded,
-                  color: AppConstant.appMainColor,
-                ),
-              );
-            }
+                return const Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.error_rounded,
+                      color: AppConstant.appMainColor,
+                    ),
+                    Text(
+                      'No product available',
+                      style: TextStyle(
+                          color: AppConstant.appMainColor,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                );
+              }
 
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return SizedBox(
-                width: Get.width,
-                height: Get.height / 5,
-                child: const Center(
-                  child: CupertinoActivityIndicator(),
-                ),
-              );
-            }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return SizedBox(
+                  width: Get.width,
+                  height: Get.height / 5,
+                  child: const Center(
+                    child: CupertinoActivityIndicator(),
+                  ),
+                );
+              }
 
-            if (snapshot.data!.docs.isEmpty) {
-              return const Center(
-                child: Icon(
-                  Icons.android_rounded,
-                  color: AppConstant.appMainColor,
-                ),
-              );
-            }
+              if (snapshot.data!.docs.isEmpty) {
+                return const Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.android_rounded,
+                      color: AppConstant.appMainColor,
+                    ),
+                    Text(
+                      'No product available',
+                      style: TextStyle(
+                          color: AppConstant.appMainColor,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                );
+              }
 
             if (snapshot.data != null) {
               return GridView.builder(
