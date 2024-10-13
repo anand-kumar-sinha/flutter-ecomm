@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecomm/controllers/getting_rating.dart';
 import 'package:ecomm/models/cart_model.dart';
 import 'package:ecomm/models/product_model.dart';
+import 'package:ecomm/models/review_model.dart';
 import 'package:ecomm/screens/user-panel/cart_screen.dart';
 import 'package:ecomm/utils/app_constant.dart';
 import 'package:ecomm/widgets/similar_product_widget.dart';
@@ -22,8 +24,12 @@ class ProductDetailScreen extends StatefulWidget {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   User? user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
+    CalculateProductRatingController calculateProductRatingController = Get.put(
+        CalculateProductRatingController(widget.productModel.productId));
+
     int salePriceInt = ((int.parse(widget.productModel.salePrice) *
                 100 /
                 int.parse(widget.productModel.fullPrice)) -
@@ -119,20 +125,26 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
 
                           //product Rating
-                          RatingBar.builder(
-                            initialRating: 3,
-                            itemSize: 23,
-                            minRating: 1,
-                            direction: Axis.horizontal,
-                            allowHalfRating: true,
-                            itemCount: 5,
-                            itemPadding: const EdgeInsets.only(left: 2),
-                            itemBuilder: (context, _) => const Icon(
-                              Icons.star,
-                              color: Colors.red,
-                            ),
-                            onRatingUpdate: (rating) {},
-                          ),
+                          Obx(() {
+                            return IgnorePointer(
+                              child: RatingBar.builder(
+                                initialRating: calculateProductRatingController
+                                    .averageRating.value, // Reactive value
+                                itemSize: 23,
+                                minRating: 1,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                itemPadding: const EdgeInsets.only(left: 2),
+                                itemBuilder: (context, _) => const Icon(
+                                  Icons.star,
+                                  color: Colors.red,
+                                ),
+                                onRatingUpdate:
+                                    (rating) {}, // Disable updating if necessary
+                              ),
+                            );
+                          }),
 
                           //product price
                           Row(
@@ -280,6 +292,178 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
                           SimilarProductWidget(
                               categoryId: widget.productModel.categoryId),
+
+                          SizedBox(
+                            width: Get.width,
+                            height: 10,
+                          ),
+                          const Text('Reviews: ',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              )),
+                          FutureBuilder(
+                            future: FirebaseFirestore.instance
+                                .collection('products')
+                                .doc(widget.productModel.productId)
+                                .collection('reviews')
+                                .get(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (snapshot.hasError) {
+                                return Center(
+                                  child: Container(
+                                    margin: const EdgeInsets.all(20),
+                                    child: const Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.error_rounded,
+                                          color: AppConstant.appMainColor,
+                                        ),
+                                        Text(
+                                          'No Reviews available',
+                                          style: TextStyle(
+                                              color: AppConstant.appMainColor,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }
+
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return SizedBox(
+                                  width: Get.width,
+                                  height: Get.height / 5,
+                                  child: const Center(
+                                    child: CupertinoActivityIndicator(),
+                                  ),
+                                );
+                              }
+
+                              if (snapshot.data!.docs.isEmpty) {
+                                return Center(
+                                  child: Container(
+                                    margin: const EdgeInsets.all(20),
+                                    child: const Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.error_rounded,
+                                          color: AppConstant.appMainColor,
+                                        ),
+                                        Text(
+                                          'No Reviews available',
+                                          style: TextStyle(
+                                              color: AppConstant.appMainColor,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }
+
+                              if (snapshot.data != null) {
+                                return Container(
+                                  margin: const EdgeInsets.only(top: 10),
+                                  width: Get.width,
+                                  height: 150,
+                                  child: ListView.builder(
+                                    physics: const BouncingScrollPhysics(),
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: snapshot.data!.docs.length,
+                                    itemBuilder: (context, index) {
+                                      var data = snapshot.data!.docs[index];
+                                      ReviewModel reviewModel = ReviewModel(
+                                          customerName: data['customerName'],
+                                          customerPhone: data['customerPhone'],
+                                          customerDeviceToken:
+                                              data['customerDeviceToken'],
+                                          customerId: data['customerId'],
+                                          feedback: data['feedback'],
+                                          rating: data['rating'],
+                                          createdAt: data['createdAt']);
+
+                                      (double.parse(reviewModel.rating)) /
+                                          snapshot.data!.docs.length;
+                                      return Container(
+                                        width: 210,
+                                        height: 150,
+                                        padding: const EdgeInsets.all(8),
+                                        margin: const EdgeInsets.only(right: 8),
+                                        decoration: BoxDecoration(
+                                            color:
+                                                AppConstant.appSecondaryColor,
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10)),
+                                            border: Border.all(
+                                                color: Colors.red, width: 1)),
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              reviewModel.customerName,
+                                              style: const TextStyle(
+                                                  color:
+                                                      AppConstant.appTextColor,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            IgnorePointer(
+                                              child: RatingBar.builder(
+                                                initialRating: double.parse(
+                                                    reviewModel.rating),
+                                                itemSize: 23,
+                                                minRating: 1,
+                                                direction: Axis.horizontal,
+                                                allowHalfRating: true,
+                                                itemCount: 5,
+                                                itemPadding:
+                                                    const EdgeInsets.only(
+                                                        left: 2),
+                                                itemBuilder: (context, _) =>
+                                                    const Icon(
+                                                  Icons.star,
+                                                  color: Colors.red,
+                                                ),
+                                                onRatingUpdate: (rating) {},
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Text(reviewModel.feedback,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.w500,
+                                                  )),
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                );
+                              }
+
+                              return Container();
+                            },
+                          )
                         ],
                       ),
                     ),
@@ -365,8 +549,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
       await documentReference.update({
         'productQuantity': updatedQuantity,
-        'productSalePrice': salePrice,
-        'productFullPrice': fullPrice,
+        'productSalePrice': salePrice.toString(),
+        'productFullPrice': fullPrice.toString(),
       });
     } else {
       await FirebaseFirestore.instance.collection('cart').doc(uId).set(
