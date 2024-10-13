@@ -1,4 +1,5 @@
 import 'package:ecomm/screens/auth-ui/welcome_screen.dart';
+import 'package:ecomm/screens/user-panel/all_order_screen.dart';
 import 'package:ecomm/utils/app_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
     return Padding(
       padding: EdgeInsets.only(top: Get.height / 23, bottom: 1),
       child: Drawer(
-        backgroundColor: AppConstant.appSecondaryColor,
+        backgroundColor: Colors.pink[200],
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(20.0),
@@ -86,18 +87,22 @@ class _CustomDrawerWidgetState extends State<CustomDrawerWidget> {
                 trailing: Icon(Icons.arrow_forward_ios_rounded),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: ListTile(
                 titleAlignment: ListTileTitleAlignment.center,
-                titleTextStyle: TextStyle(
+                titleTextStyle: const TextStyle(
                     color: AppConstant.appTextColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 20),
-                title: Text('Orders'),
-                leading: Icon(Icons.shopping_bag),
+                title: const Text('Orders'),
+                onTap: () {
+                  Get.back();
+                  Get.to(const AllOrderScreen());
+                },
+                leading: const Icon(Icons.shopping_bag),
                 iconColor: AppConstant.appTextColor,
-                trailing: Icon(Icons.arrow_forward_ios_rounded),
+                trailing: const Icon(Icons.arrow_forward_ios_rounded),
               ),
             ),
             const Padding(

@@ -51,7 +51,7 @@ void placeOrder({
           productFullPrice: data['productFullPrice'],
           productSalePrice: data['productSalePrice'],
           customerId: user.uid,
-          status: false,
+          status: 'pending',
           customerName: customerName,
           customerCity: customerCity,
           customerPhone: customerPhone,
@@ -73,7 +73,7 @@ void placeOrder({
               'customerPincode': customerPincode,
               'customerCity': customerCity,
               'customerDeviceToken': customerDeviceToken,
-              'orderStatus': false,
+              'orderStatus': 'pending',
               'createdAt': DateTime.now(),
             },
           );

@@ -17,7 +17,7 @@ class OrderModel {
   final String productFullPrice;
   final String productSalePrice;
   final String customerId;
-  final bool status;
+  final String status;
   final String customerName;
   final String customerCity;
   final String customerPincode;

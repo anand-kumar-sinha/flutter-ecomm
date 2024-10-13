@@ -34,10 +34,6 @@ class CartTotalPriceController extends GetxController {
         sum2 += double.parse(data['productSalePrice']);
       }
     }
-
-    print('sum $sum');
-    print('sum2 $sum2');
-
     fullPrice.value = sum;
     salePrice.value = sum2;
   }

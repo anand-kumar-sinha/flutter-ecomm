@@ -25,9 +25,9 @@ class _CartScreenState extends State<CartScreen> {
   void handleDelete(
       CompletionHandler handler, String userId, String productId) async {
     await FirebaseFirestore.instance
-        .collection('cart')
+        .collection('orders')
         .doc(userId)
-        .collection('cartOrders')
+        .collection('confirmOrders')
         .doc(productId)
         .delete();
   }
