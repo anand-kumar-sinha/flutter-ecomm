@@ -6,6 +6,7 @@ import 'package:ecomm/models/cart_model.dart';
 import 'package:ecomm/models/product_model.dart';
 import 'package:ecomm/models/review_model.dart';
 import 'package:ecomm/screens/user-panel/cart_screen.dart';
+import 'package:ecomm/screens/user-panel/order_summry.dart';
 import 'package:ecomm/utils/app_constant.dart';
 import 'package:ecomm/widgets/similar_product_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -447,6 +448,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                               child: Text(reviewModel.feedback,
                                                   overflow:
                                                       TextOverflow.ellipsis,
+                                                  maxLines: 5,
                                                   style: const TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 13,
@@ -512,7 +514,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       Icons.shopping_basket_rounded,
                       color: AppConstant.appTextColor,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(const OrderSummry());
+                    },
                     label: const Text(
                       'Buy now',
                       style: TextStyle(

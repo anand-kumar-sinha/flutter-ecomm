@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:get/get.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class OrderSummry extends StatefulWidget {
   const OrderSummry({super.key});
@@ -28,6 +29,12 @@ class _OrderSummryState extends State<OrderSummry> {
   TextEditingController addressController = TextEditingController();
   TextEditingController pincodeController = TextEditingController();
   TextEditingController cityController = TextEditingController();
+  String? name;
+  String? phone;
+  String? address;
+  String? pincode;
+  String? city;
+  String? customerToken;
 
   void handleDelete(
       CompletionHandler handler, String userId, String productId) async {
@@ -39,8 +46,13 @@ class _OrderSummryState extends State<OrderSummry> {
         .delete();
   }
 
+  Razorpay _razorpay = Razorpay();
+
   @override
   Widget build(BuildContext context) {
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -412,26 +424,34 @@ class _OrderSummryState extends State<OrderSummry> {
                         addressController.text != '' &&
                         pincodeController.text != '' &&
                         cityController.text != '') {
-                      String name = nameController.text.trim();
-                      String phone = phoneController.text.trim();
-                      String address = addressController.text.trim();
-                      String pincode = pincodeController.text.trim();
-                      String city = cityController.text.trim();
+                      name = nameController.text.trim();
+                      phone = phoneController.text.trim();
+                      address = addressController.text.trim();
+                      pincode = pincodeController.text.trim();
+                      city = cityController.text.trim();
 
-                      
-
-                      String customerToken = await getCustomerDeviceToken();
+                      customerToken = await getCustomerDeviceToken();
 
                       //place order
-                      placeOrder(
-                        context: context,
-                        customerName: name,
-                        customerPhone: phone,
-                        customerAddress: address,
-                        customerPincode: pincode,
-                        customerCity: city,
-                        customerDeviceToken: customerToken,
-                      );
+                      var options = {
+                        'key': 'rzp_test_TlJPUOdDKYH8ep',
+                        'amount': cartTotalPriceController.salePrice * 100,
+                        'currenct': 'INR',
+                        'name': 'Loot Bazar',
+                        'description': 'Order',
+                        'prefill': {
+                          'email': user!.email,
+                        },
+                        'method': {
+                          'netbanking': false,
+                          'card': true,
+                          'upi': true,
+                          'wallet':
+                              false // Disable wallets by setting this to false
+                        },
+                      };
+
+                      _razorpay.open(options);
                     } else {
                       Get.snackbar("Error", "Please Enter All Details",
                           snackPosition: SnackPosition.BOTTOM,
@@ -452,5 +472,37 @@ class _OrderSummryState extends State<OrderSummry> {
         ),
       ),
     );
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    // Do something when payment succeeds
+    placeOrder(
+      context: context,
+      customerName: name!,
+      customerPhone: phone!,
+      customerAddress: address!,
+      customerPincode: pincode!,
+      customerCity: city!,
+      customerDeviceToken: customerToken!,
+    );
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    // Do something when payment fails
+    Get.snackbar("Error", "Please Enter All Details",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: AppConstant.appMainColor,
+        colorText: AppConstant.appTextColor);
+    return;
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    // Do something when an external wallet was selected
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _razorpay.clear();
   }
 }
